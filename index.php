@@ -15,51 +15,27 @@ and open the template in the editor.
         require_once 'Classes.php';
         
         echo "<br>";
-        //Criando dois personagens para batalha
-        $l1 = new Ladrao("Ladrão");
-        $l2 = new Ladrao('ladrão II');
+        //Criando personagens para batalha as batalhas
+//        $l1 = new Ladrao("Ladrão");
+//        $l2 = new Ladrao('Ladrão II');
+//        $c1 = new Cavaleiro("Arthur");
+        
+        $p[1] = new Ladrao("Ladrão");
+        $p[2] = new Ladrao('Ladrão II');
+        $p[3] = new Cavaleiro("Arthur");
+        $p[4] = new Mago("Harry Porta");
         
         
-        // duas armas para teste
+        // armas para teste
         $ar1 = new Arma('Espada Curta', 'Espada', 1.1, 0, 0);
         $ar2 = new Arma('Espada Longa', 'Espada', 1.15, 0, 0);
+        $ar3 = new Arma('Bolota de Pregos', 'Bolota', 1.3, 0, 0);
         
-        $batalha[1] = new Batalha($l1, $l2);
-     
-        // Testando desequipando arma
-        $l1->desequiparArma(1);
-        $l2->desequiparArma(1);
-
-        $l1->equiparArma(1, $ar1);
-        $l2->equiparArma(1, $ar2);
+        $batalha[1] = new Batalha($p);
         
-        $batalha[1]->ataqueComum($l1, $l2);
-        $batalha[1]->ataqueComum($l2, $l1);
-        
-        //print_r($batalha[1]);
+        print_r($batalha);
         
         
-        
-        
-        
-        
-        
-      
-        
-      
-        
-        
-        //print_r($batalha);
- 
-        
-        
-        
-        
-        
-        
-        
-       
-        // put your code here
         ?>
 </pre>
     </body>

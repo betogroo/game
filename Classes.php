@@ -5,6 +5,7 @@ abstract class Personagem {
     private $vidaMax;
     private $vida;
     private $armadura;
+    private $armaduraDefault;
     private $forca;
     private $forcaDefault;
     private $velocidade;
@@ -20,11 +21,12 @@ abstract class Personagem {
         $this->vidaMax = 100;
         $this->vida = $this->vidaMax;
         $this->armadura = 100;
+        $this->armaduradefault = $this->armadura;
         $this->forca = 150;
         $this->forcaDefault = $this->forca;
         $this->velocidade = 100;
         $this->mao1 = 0;
-        $this->mao1 = 0;
+        $this->mao2 = 0;
     }
     
     public function __set($name, $value) {
@@ -114,6 +116,10 @@ class Mago extends Personagem{
         parent::__construct($nome);
         $this->__set('armadura', $this->__get('armadura')*0.95);
         $this->__set('vidaMax', $this->__get('vidaMax')*1.05);
+        $this->__set('mao1', new Arma('Varinha Quebrada', 'Varinha', 1.2, 0, 0));
+        $this->__set('forca',
+                    $this->__get('forca') * $this->__get('mao1')->__get('forca')
+                );
         $this->__set('vida', $this->__get('vidaMax'));
     }
 }
@@ -122,11 +128,18 @@ class Cavaleiro extends Personagem{
     public function __construct($nome) {
         parent::__construct($nome);
         $this->__set('armadura', $this->__get('armadura')*1.15);
+        $this->__set('armaduraDefault', $this->__get('armadura'));
+        
         $this->__set('velocidade', $this->__get('velocidade')*0.85);
-        $this->__set('mao1', new Arma('Espada Curta', 'Espada', 1.1, 0, 0));
-        $this->__set('mao2', new Arma('Escudo redodno', 'Escudo', 0, 1.05, 0));
+        
+        $this->__set('mao1', new Arma('Espada Longa', 'Espada', 1.3, 0, 0));
         $this->__set('forca',
                     $this->__get('forca') * $this->__get('mao1')->__get('forca')
+                );
+        
+        $this->__set('mao2', new Arma('Escudo redodno', 'Escudo', 0, 1.05, 0));
+        $this->__set('armadura',
+                    $this->__get('armadura') * $this->__get('mao2')->__get('defesa')
                 );
     }
 }
@@ -135,9 +148,12 @@ class Ladrao extends Personagem{
     public function __construct($nome) {
         parent::__construct($nome);
         $this->__set('armadura', $this->__get('armadura')*0.80);
+        
         $this->__set('velocidade', $this->__get('velocidade')*1.075);
+        
         $this->__set('forca', $this->__get('forca')*0.95);
         $this->__set('forcaDefault', $this->__get('forca'));
+        
         $this->__set('mao1', new Arma('Espada Curta', 'Espada', 1.1, 0, 0));
         //$this->forca = $this->forca * $this->mao1->__get('forca');
         $this->__set('forca',
@@ -147,16 +163,14 @@ class Ladrao extends Personagem{
 }
 
 class Batalha{
-    // Passar array de personagens como parametro???
     private $idBatalha;
-    private $p1;
-    private $p2;
+    private $p;
     private $dano;
     
-    public function __construct($p1, $p2) {
+    public function __construct($p) {
+        
+        $this->p = $p;       
         $this->idBatalha = rand();
-        $this->p1 = $p1;
-        $this->p2 = $p2;
     }
     
     public function __set($name, $value) {
@@ -185,6 +199,25 @@ class Batalha{
     }
     
     
+}
+
+Class Pocao{
+    
+    private $nome;
+    
+    public function __construct($nome) {
+        $this->nome = $nome;
+    }
+    
+    public function __get($name) {
+        return $this->$name = $name;
+    }
+
+    public function __set($name, $value) {
+        $this->$name = $value;
+    }
+
+
 }
 
 
